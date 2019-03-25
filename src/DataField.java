@@ -13,8 +13,8 @@ import java.util.Arrays;
 
 public class DataField extends JTextField {
 
-    private static byte[] saveData;
     private static Path filePath = Paths.get("G:/Documents/CECS 378/Ultima_5/SAVED.GAM");
+    private static byte[] saveData;
 
     static {
         reload();
@@ -76,7 +76,7 @@ public class DataField extends JTextField {
     private int ByteToInt(byte[] bytes){
         int newInt = 0;
         for(int b = 0; b < length; b++){
-            newInt = newInt | (bytes[b] << (b * 8));
+            newInt = newInt | ((bytes[b] & 0xFF) << (b * 8));
         }
         return newInt;
     }
