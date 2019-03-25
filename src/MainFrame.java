@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
 
@@ -15,6 +17,36 @@ public class MainFrame extends JFrame {
         this.add(makeDataField("DEXT", 15, 1));
         this.add(makeDataField("INT", 16, 1));
 
+
+        JPanel p = new JPanel(new FlowLayout());
+
+        JButton refreshButton = new JButton();
+        refreshButton.setText("Reload");
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                DataField.reload();
+                loadFrame();
+                dispose();
+            }
+        });
+
+        JButton applyButton = new JButton();
+        applyButton.setText("Apply");
+        applyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DataField.persist();
+            }
+        });
+
+        p.add(refreshButton);
+        p.add(applyButton);
+
+        this.add(p);
+
+
         pack();
     }
 
@@ -27,8 +59,12 @@ public class MainFrame extends JFrame {
         return p;
     }
 
-    public static void main(String args[]) {
+    public static void loadFrame(){
         MainFrame f = new MainFrame();
         f.setVisible(true);
+    }
+
+    public static void main(String args[]) {
+        loadFrame();
     }
 }
