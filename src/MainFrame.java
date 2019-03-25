@@ -10,22 +10,24 @@ public class MainFrame extends JFrame {
         setTitle("Ultima V Save Editor");
         setPreferredSize(new Dimension(500, 350));
 
-        this.setLayout(new GridLayout(0, 1));
+        this.setLayout(new BorderLayout());
 
-        this.add(makeDataField("GOLD", 0x204, 2));
-        this.add(makeDataField("KEYS", 0x206, 1));
-        this.add(makeDataField("GEMS", 0x207, 1));
+        JPanel topP = new JPanel(new FlowLayout());
+        topP.add(makeDataField("GOLD", 0x204, 2));
+        topP.add(makeDataField("KEYS", 0x206, 1));
+        topP.add(makeDataField("GEMS", 0x207, 1));
+        this.add(topP, BorderLayout.NORTH);
 
+        JPanel centerP = new JPanel(new GridLayout(0, 2));
+        centerP.add(makeDataField("STR", 0x0E, 1));
+        centerP.add(makeDataField("DEXT", 0x0F, 1));
+        centerP.add(makeDataField("INT", 0x10, 1));
+        centerP.add(makeDataField("HP", 0x12, 2));
+        centerP.add(makeDataField("HM", 0x14, 2));
+        centerP.add(makeDataField("EXP", 0x16, 2));
+        this.add(centerP, BorderLayout.CENTER);
 
-        this.add(makeDataField("STR", 0x0E, 1));
-        this.add(makeDataField("DEXT", 0x0F, 1));
-        this.add(makeDataField("INT", 0x10, 1));
-        this.add(makeDataField("HP", 0x12, 2));
-        this.add(makeDataField("HM", 0x14, 2));
-        this.add(makeDataField("EXP", 0x16, 2));
-
-        this.add(makeButtonPanel());
-
+        this.add(makeButtonPanel(), BorderLayout.SOUTH);
 
         pack();
     }
