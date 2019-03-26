@@ -11,10 +11,12 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
 
-public class DataField extends JTextField {
+public class
+DataField extends JTextField {
 
     private static Path filePath = Paths.get("G:/Documents/CECS 378/Ultima_5/SAVED.GAM");
     private static byte[] saveData;
+    public static String[] charNames = new String[16];
 
     static {
         reload();
@@ -39,7 +41,18 @@ public class DataField extends JTextField {
         }
         catch(IOException e)
         {
+            System.err.println("Failed to read save game.");
             System.exit(404);
+        }
+
+        for(int i = 0; i < 16; i++)
+        {
+            String name = "";
+            for(int j = 0x2 + (i * 0x20); j <= 0x9 + (i * 0x20); j++)
+            {
+                name += (char)saveData[j];
+            }
+            charNames[i] = name;
         }
     }
 
