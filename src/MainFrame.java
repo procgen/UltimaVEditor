@@ -8,7 +8,7 @@ public class MainFrame extends JFrame {
     MainFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Ultima V Save Editor");
-        setPreferredSize(new Dimension(500, 350));
+        setPreferredSize(new Dimension(500, 250));
 
         this.setLayout(new BorderLayout());
 
@@ -36,10 +36,10 @@ public class MainFrame extends JFrame {
         row1.add(makeDataField("Gold", 0x204, 2));
         row1.add(makeDataField("Keys", 0x206, 1));
         row1.add(makeDataField("Gems", 0x207, 1));
-        row2.add(makeDataField("Black Badge", 0x218, 1));
-        row2.add(makeDataField("Magic Carpet", 0x20A, 1));
+        row2.add(makeDataField("B. Badge", 0x218, 1));
+        row2.add(makeDataField("M. Carpet", 0x20A, 1));
         row2.add(makeDataField("Skull Keys", 0x20B, 1));
-        row2.add(makeDataField("Magic Axe", 0x240, 1));
+        row2.add(makeDataField("M. Axe", 0x240, 1));
         topP.add(row1);
         topP.add(row2);
         this.add(topP, BorderLayout.NORTH);
