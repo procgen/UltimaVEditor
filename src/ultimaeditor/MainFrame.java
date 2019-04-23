@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
  */
 public class MainFrame extends JFrame {
 
+    /** Default constructor
+     *
+     */
     private MainFrame() {
         // Determine basic layout and settings of GUI
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,8 +70,11 @@ public class MainFrame extends JFrame {
         pack(); // size window based on contents
     }
 
-    // Using a given character offset (where the data begins describing a character) we are able to determine where all
-    // necessary attributes are stored and create DataField objects for each.
+    /**
+     * Using a given character offset (where the data begins describing a character) we are able to determine where all
+     * necessary attributes are stored and create DataField objects for each.
+     * @param offset - Offset of the character
+     */
     private JPanel makeCharacterField(int offset){
         JPanel centerP = new JPanel(new GridLayout(0, 1));
         JPanel row1 = new JPanel(new FlowLayout());
@@ -87,7 +93,13 @@ public class MainFrame extends JFrame {
         return centerP;
     }
 
-    // Method to return a JPanel that stores a label with given text and a datafield (modified textfield) next to it
+    /**
+     * Method to return a JPanel that stores a label with given text and a datafield (modified textfield) next to it
+     * @param label - The text displayed next to the textField
+     * @param offset - How to offset where we are accessing the data
+     * @param length - How many bytes this value takes up
+     * @return - A JPanel for inserting directly into the GUI, containing a DataField and label combo
+     */
     private JPanel makeDataField(String label, int offset, int length){
         JPanel p = new JPanel(new FlowLayout());
         JLabel nameLabel = new JLabel(label + ": ", JLabel.LEADING);
@@ -97,9 +109,12 @@ public class MainFrame extends JFrame {
         return p;
     }
 
-    // Method that creates a panel containing two buttons:
-    // One that reloads all datafields and the main window itself
-    // Another that applies all the changes that have been made so far
+    /**
+     * Method that creates a panel containing two buttons:
+     * One that reloads all datafields and the main window itself
+     * Another that applies all changes that have been made so far
+     * @return The JPanel containing both buttons
+     */
     private JPanel makeButtonPanel(){
         JPanel p = new JPanel(new FlowLayout());
 
@@ -129,13 +144,17 @@ public class MainFrame extends JFrame {
         return p;
     }
 
-    // Used to create a new main window
+    /**
+     * Used to create a new main window
+     */
     private static void loadFrame(){
         MainFrame f = new MainFrame();
         f.setVisible(true);
     }
 
-    //Entry point, simply opens the window
+    /**
+     * Entry point, simply opens the window
+    */
     public static void main(String args[]) {
         loadFrame();
     }

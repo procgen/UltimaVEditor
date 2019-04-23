@@ -20,9 +20,13 @@ import java.util.Arrays;
  * object itself for displaying in the GUI
  * The class extends JTextField to facilitate its use in the GUI as an editable textfield.
  *
+ * @author Josh Lorenzen
+ * @version 1.0
+ *
  */
 public class DataField extends JTextField {
 
+    //S ome alternate paths to make development easier
 //    private static Path filePath = Paths.get("G:/Documents/CECS 378/Ultima_5/SAVED.GAM");
 //    private static Path filePath = Paths.get("/home/josh/Documents/Projects/UltimaV/Ultima_5/Ultima_5/SAVED.GAM");
     private static Path filePath = Paths.get("./SAVED.GAM");
@@ -71,20 +75,25 @@ public class DataField extends JTextField {
         }
     }
 
-
+    /**
+     * Constructor creates a DataField and sets up Listeners for the GUI
+     * Stores the currently set data value in an array of bytes
+     * Defaults the value displayed in the field to whatever the SAVED.GAM file currently has
+     * @param offset - Represents how far away the value this DataField modifies is in bits
+     * @param length - Number of bytes the value is encoded in
+     */
     public DataField(int offset, int length) {
         this.offset = offset;
         this.length = length;
         data = new byte[length];
-        data = Arrays.copyOfRange(saveData, offset, offset + length);
-        setText(Integer.toString(ByteToInt(data)));
-        setColumns(length * 2);
+        data = Arrays.copyOfRange(saveData, offset, offset + length);//Initialize data as what is found in SAVED.GAM
+        setText(Integer.toString(ByteToInt(data))); // Show initialized data in GUI
+        setColumns(length * 2); // Size textField according to size of data
 
         // Commits changes in this textfield to the saveData when you press enter
         this.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(getText());
                 setData(Integer.parseInt(getText()));
             }
         });
@@ -105,16 +114,25 @@ public class DataField extends JTextField {
 
     }
 
-    //Converts a byte array to an integer little endian
-    private int ByteToInt(byte[] bytes){
+    /**
+     * Converts a byte array to an integer little endian style
+     * @param bytes - Byte array we are converting to an int
+     */
+
+    private int ByteToInt(byte[] bytes) {
         int newInt = 0;
         for(int b = 0; b < length; b++){
-            newInt = newInt | ((bytes[b] & 0xFF) << (b * 8));
+            newInt = newInt | ((bytes[b] & 0xFF) << (b * 8)); // continuously OR with every 8 bytes of data, starting
+            // from the bottom and working the way up
         }
         return newInt;
     }
 
-    //Converts an integer into bytes and stores them in saveData
+    /**
+     * Converts an integer into a byte array and stores it in saveData
+     * @param newData - Data we want to store in the DataField
+     */
+
     private void setData(int newData)
     {
         for(int b = 0; b < length; b++){
@@ -124,7 +142,7 @@ public class DataField extends JTextField {
         }
         for(int b = offset; b < offset + length; b++){
             saveData[b] = data[b - offset];
-            // use stored data attribute and offset to modify the saveData we have locally
+            // use stored data attribute and offset to modify the saveData we have locally, keeping them synchronized
         }
     }
 
